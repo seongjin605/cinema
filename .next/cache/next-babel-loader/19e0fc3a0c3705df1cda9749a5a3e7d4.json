@@ -1,1 +1,0 @@
-{"ast":null,"code":"import React from \"react\";\nvar __jsx = React.createElement;\n\nfunction Index(props) {\n  var message = props.message;\n  return __jsx(\"div\", null, \"Welcome to \", message);\n}\n\nexport var __N_SSG = true;\nexport default Index;","map":null,"metadata":{},"sourceType":"module"}
