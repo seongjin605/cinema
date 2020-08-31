@@ -1,12 +1,12 @@
-function Index(props) {
-  const { message } = props;
-  return <div>Welcome to {message}</div>;
-}
-export async function getStaticProps(context) {
-  return {
-    props: {
-      message: `Next.js!`
-    }
-  };
-}
+import Link from 'next/link';
+
+const Index = () => (
+  <div>
+    <Link href="/about">
+      <a>about</a>
+    </Link>
+    <p>Hello Next.js</p>
+  </div>
+);
+
 export default Index;
