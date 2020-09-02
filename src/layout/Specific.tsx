@@ -8,6 +8,7 @@ const layoutStyle = {
 
 interface Props {
   name: string;
+  query: string | string[];
 }
 
 const Layout: React.FC<Props> = props => {
