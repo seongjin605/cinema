@@ -8,7 +8,7 @@ interface Props {
 const PostLink: React.FC<Props> = props => {
   return (
     <li>
-      <Link href={`/posts?title=${props.title}`}>
+      <Link as={`/test/${props.title}`} href={{ pathname: '/posts', query: { test: props.title } }}>
         <a>{props.title}</a>
       </Link>
     </li>
