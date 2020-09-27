@@ -60,6 +60,7 @@ export default function RecipeReviewCard() {
     return <h1>로딩....</h1>;
   }
   console.log('로딩 끝');
+  // TODO: Skeleton Loaders
   return (
     <ul>
       {movies.map((movie, key) => (
