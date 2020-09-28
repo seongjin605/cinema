@@ -24,17 +24,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-// interface Movie {
-//   title: string;
-//   loading?: false;
-// }
-
 interface MovieProps {
   title: string;
   summary: string;
   background_image: string;
   medium_cover_image: string;
   isLoading?: false;
+}
+
+function isAvatarLoading(isLoading: boolean, props: MovieProps) {
+  if (isLoading) {
+    return <Skeleton animation="wave" variant="circle" width={40} height={40} />;
+  }
+
+  return <Avatar alt="Ted talk" src={props.background_image} />;
 }
 
 export default function RecipeReviewCard(props: MovieProps) {
@@ -72,13 +75,7 @@ export default function RecipeReviewCard(props: MovieProps) {
       {movies.map((movie, key) => (
         <Card className={classes.card} key={key}>
           <CardHeader
-            avatar={
-              isLoading ? (
-                <Skeleton animation="wave" variant="circle" width={40} height={40} />
-              ) : (
-                <Avatar alt="Ted talk" src={movie.background_image} />
-              )
-            }
+            avatar={isAvatarLoading(isLoading, movie)}
             action={
               isLoading ? null : (
                 <IconButton aria-label="settings">
