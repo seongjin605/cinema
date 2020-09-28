@@ -4,8 +4,11 @@ const next = require('next');
 
 const devProxy = {
   '/api': {
-    target: 'https://yts.am/api/v2/list_movies.json?sort_by=download_count',
-    changeOrigin: true
+    target: 'https://yts.am/api/v2/list_movies.json',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '' // URL ^/api -> 공백 변경
+    }
   }
 };
 

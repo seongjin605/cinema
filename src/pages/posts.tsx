@@ -31,25 +31,32 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface MovieProps {
   title: string;
-  loading?: false;
+  summary: string;
+  background_image: string;
+  medium_cover_image: string;
+  isLoading?: false;
 }
 
 export default function RecipeReviewCard(props: MovieProps) {
   const [movies, setMovies] = React.useState<Array<MovieProps>>([]);
-  const { loading = false } = props;
+  let { isLoading = false } = props;
   const classes = useStyles();
 
   async function getMovies() {
     try {
+      isLoading = true;
       const {
         data: {
           data: { movies = [] }
         }
-      }: { data: { data: { movies: Array<MovieProps> } } } = await axios.get('/api');
-
+      }: { data: { data: { movies: Array<MovieProps> } } } = await axios.get(
+        '/api?sort_by=download_count'
+      );
       setMovies(movies);
     } catch (error) {
       console.error(error);
+    } finally {
+      isLoading = false;
     }
   }
 
@@ -59,62 +66,60 @@ export default function RecipeReviewCard(props: MovieProps) {
     }
   });
 
-  // if (movies.length === 0) {
-  //   return <h1>로딩....</h1>;
-  // }
   console.log('로딩 끝');
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={
-          loading ? (
-            <Skeleton animation="wave" variant="circle" width={40} height={40} />
-          ) : (
-            <Avatar
-              alt="Ted talk"
-              src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
-            />
-          )
-        }
-        action={
-          loading ? null : (
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          )
-        }
-        title={
-          loading ? (
-            <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
-          ) : (
-            'Ted'
-          )
-        }
-        subheader={loading ? <Skeleton animation="wave" height={10} width="40%" /> : '5 hours ago'}
-      />
-      {loading ? (
-        <Skeleton animation="wave" variant="rect" className={classes.media} />
-      ) : (
-        <CardMedia
-          className={classes.media}
-          image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
-          title="Ted talk"
-        />
-      )}
-      <CardContent>
-        {loading ? (
-          <React.Fragment>
-            <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-            <Skeleton animation="wave" height={10} width="80%" />
-          </React.Fragment>
-        ) : (
-          <Typography variant="body2" color="textSecondary" component="p">
-            {
-              "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
+    <div>
+      {movies.map((movie, key) => (
+        <Card className={classes.card} key={key}>
+          <CardHeader
+            avatar={
+              isLoading ? (
+                <Skeleton animation="wave" variant="circle" width={40} height={40} />
+              ) : (
+                <Avatar alt="Ted talk" src={movie.background_image} />
+              )
             }
-          </Typography>
-        )}
-      </CardContent>
-    </Card>
+            action={
+              isLoading ? null : (
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              )
+            }
+            title={
+              isLoading ? (
+                <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+              ) : (
+                'Ted'
+              )
+            }
+            subheader={
+              isLoading ? <Skeleton animation="wave" height={10} width="40%" /> : '5 hours ago'
+            }
+          />
+          {isLoading ? (
+            <Skeleton animation="wave" variant="rect" className={classes.media} />
+          ) : (
+            <CardMedia
+              className={classes.media}
+              image={movie.medium_cover_image}
+              title="Ted talk"
+            />
+          )}
+          <CardContent>
+            {isLoading ? (
+              <React.Fragment>
+                <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                <Skeleton animation="wave" height={10} width="80%" />
+              </React.Fragment>
+            ) : (
+              <Typography variant="body2" color="textSecondary" component="p">
+                {movie.summary}
+              </Typography>
+            )}
+          </CardContent>
+        </Card>
+      ))}
+    </div>
   );
 }
