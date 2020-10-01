@@ -16,6 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
+import MovieIcon from '@material-ui/icons/Movie';
 
 const drawerWidth = 151;
 
@@ -90,6 +91,11 @@ const Layout = () => {
     setOpen(false);
   };
 
+  const menuItems = [
+    { name: 'Welcome', icon: HomeIcon },
+    { name: 'Posts', icon: MovieIcon }
+  ];
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -130,10 +136,10 @@ const Layout = () => {
         </div>
         <Divider />
         <List>
-          {['Welcome'].map((text, index) => (
+          {menuItems.map((item, index) => (
             <ListItem button key={index}>
-              <ListItemIcon>{<HomeIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon>{<item.icon />}</ListItemIcon>
+              <ListItemText primary={item.name} />
             </ListItem>
           ))}
         </List>
