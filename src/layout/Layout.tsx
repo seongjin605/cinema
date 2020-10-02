@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import MovieIcon from '@material-ui/icons/Movie';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 const drawerWidth = 151;
 
@@ -97,9 +98,12 @@ const Layout = () => {
     { name: 'Welcome', icon: HomeIcon, href: '/' },
     { name: 'Posts', icon: MovieIcon, href: '/posts' }
   ];
+  const LayoutOuter = styled.div`
+    margin-bottom: 5px;
+  `;
 
   return (
-    <div className={classes.root}>
+    <LayoutOuter className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -155,7 +159,7 @@ const Layout = () => {
       >
         <div className={classes.drawerHeader} />
       </main>
-    </div>
+    </LayoutOuter>
   );
 };
 

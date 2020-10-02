@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Layout from '../layout/Layout';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,6 +72,7 @@ export default function RecipeReviewCard(props: MovieProps) {
   console.log('로딩 끝');
   return (
     <div>
+      <Layout />
       {movies.map((movie, key) => (
         <Card className={classes.card} key={key}>
           <CardHeader
