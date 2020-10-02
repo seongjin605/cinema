@@ -50,3 +50,9 @@ app
     console.log('An error occurred, unable to start the server');
     console.log(err);
   });
+
+process.on('SIGINT', () => {
+  console.log('\nGracefully shutting down from SIGINT (Ctrl-C)');
+  // some other closing procedures go here
+  process.exit(1);
+});
