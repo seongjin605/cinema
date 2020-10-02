@@ -37,7 +37,7 @@ function isAvatarLoading(isLoading: boolean, props: MovieProps) {
     return <Skeleton animation="wave" variant="circle" width={40} height={40} />;
   }
 
-  return <Avatar alt="Ted talk" src={props.background_image} />;
+  return <Avatar alt="Ted talk" src={props.medium_cover_image} />;
 }
 
 export default function RecipeReviewCard(props: MovieProps) {
@@ -56,6 +56,7 @@ export default function RecipeReviewCard(props: MovieProps) {
         '/api?sort_by=download_count'
       );
       setMovies(movies);
+      console.log(movies);
     } catch (error) {
       console.error(error);
     } finally {
@@ -88,7 +89,7 @@ export default function RecipeReviewCard(props: MovieProps) {
               isLoading ? (
                 <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
               ) : (
-                'Ted'
+                movie.title
               )
             }
             subheader={

@@ -98,6 +98,7 @@ const Layout = () => {
     { name: 'Welcome', icon: HomeIcon, href: '/' },
     { name: 'Posts', icon: MovieIcon, href: '/posts' }
   ];
+
   const LayoutOuter = styled.div`
     margin-bottom: 5px;
   `;
