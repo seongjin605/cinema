@@ -17,6 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import MovieIcon from '@material-ui/icons/Movie';
+import { useRouter } from 'next/router';
 
 const drawerWidth = 151;
 
@@ -79,6 +80,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Layout = () => {
+  const router = useRouter();
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -92,8 +94,8 @@ const Layout = () => {
   };
 
   const menuItems = [
-    { name: 'Welcome', icon: HomeIcon },
-    { name: 'Posts', icon: MovieIcon }
+    { name: 'Welcome', icon: HomeIcon, href: '/' },
+    { name: 'Posts', icon: MovieIcon, href: '/posts' }
   ];
 
   return (
@@ -116,7 +118,7 @@ const Layout = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Welcome to cinemaz
+            Welcome to cinema
           </Typography>
         </Toolbar>
       </AppBar>
@@ -137,10 +139,12 @@ const Layout = () => {
         <Divider />
         <List>
           {menuItems.map((item, index) => (
-            <ListItem button key={index}>
-              <ListItemIcon>{<item.icon />}</ListItemIcon>
-              <ListItemText primary={item.name} />
-            </ListItem>
+            <a onClick={() => router.push(item.href)} key={index}>
+              <ListItem button>
+                <ListItemIcon>{<item.icon />}</ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItem>
+            </a>
           ))}
         </List>
       </Drawer>
