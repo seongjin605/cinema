@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Card from '@material-ui/core/Card';
@@ -8,7 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Layout from '../layout/Layout';
 
@@ -40,8 +40,14 @@ function isAvatarLoading(isLoading: boolean, props: MovieProps) {
   return <Avatar alt="Ted talk" src={props.medium_cover_image} />;
 }
 
+// function test() {
+//   this.setCount(this.count);
+// }
+
 export default function RecipeReviewCard(props: MovieProps) {
-  const [movies, setMovies] = React.useState<Array<MovieProps>>([]);
+  const [movies, setMovies] = useState<Array<MovieProps>>([]);
+  let [page, setPage] = useState(1);
+
   let { isLoading = false } = props;
   const classes = useStyles();
 
@@ -53,7 +59,7 @@ export default function RecipeReviewCard(props: MovieProps) {
           data: { movies = [] }
         }
       }: { data: { data: { movies: Array<MovieProps> } } } = await axios.get(
-        '/api?sort_by=download_count'
+        `/api?sort_by=download_count&page=${page}`
       );
       setMovies(movies);
       console.log(movies);
@@ -65,10 +71,8 @@ export default function RecipeReviewCard(props: MovieProps) {
   }
 
   useEffect(() => {
-    if (Array.isArray(movies) && movies.length === 0) {
-      getMovies();
-    }
-  });
+    getMovies();
+  }, [page]);
 
   console.log('로딩 끝');
   return (
@@ -80,8 +84,8 @@ export default function RecipeReviewCard(props: MovieProps) {
             avatar={isAvatarLoading(isLoading, movie)}
             action={
               isLoading ? null : (
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
+                <IconButton aria-label="settings" onClick={() => setPage(page++)}>
+                  <AddIcon />
                 </IconButton>
               )
             }
