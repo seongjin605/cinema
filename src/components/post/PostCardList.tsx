@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface MovieProps {
-  title: string;
-  summary: string;
-  background_image: string;
-  medium_cover_image: string;
+  title?: string;
+  summary?: string;
+  background_image?: string;
+  medium_cover_image?: string;
   isLoading?: false;
 }
 
