@@ -8,7 +8,7 @@ export default function Posts() {
   return (
     <div>
       <Layout />
-      <PostCardList title={title} />
+      <PostCardList />
     </div>
   );
 }

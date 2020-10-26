@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface MovieProps {
   title: string;
-  summary?: string;
-  background_image?: string;
-  medium_cover_image?: string;
-  isLoading?: false;
+  summary: string;
+  background_image: string;
+  medium_cover_image: string;
+  isLoading: false;
 }
 
 function isAvatarLoading(isLoading: boolean, props: MovieProps) {
@@ -39,11 +39,11 @@ function isAvatarLoading(isLoading: boolean, props: MovieProps) {
   return <Avatar alt="Ted talk" src={props.medium_cover_image} />;
 }
 
-export default function PostCardList(props: MovieProps) {
+export default function PostCardList() {
   const [movies, setMovies] = useState<Array<MovieProps>>([]);
   let [page, setPage] = useState(1);
 
-  let { isLoading = false } = props;
+  let isLoading = false;
   const classes = useStyles();
 
   async function getMovies() {
