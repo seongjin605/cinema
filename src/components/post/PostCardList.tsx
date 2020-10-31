@@ -36,7 +36,7 @@ function isAvatarLoading(isLoading: boolean, props: MovieProps) {
     return <Skeleton animation="wave" variant="circle" width={40} height={40} />;
   }
 
-  return <Avatar alt="Ted talk" src={props.medium_cover_image} />;
+  return <Avatar alt={props.medium_cover_image} src={props.medium_cover_image} />;
 }
 
 export default function PostCardList() {
@@ -99,7 +99,7 @@ export default function PostCardList() {
             <CardMedia
               className={classes.media}
               image={movie.medium_cover_image}
-              title="Ted talk"
+              title={movie.title}
             />
           )}
           <CardContent>
