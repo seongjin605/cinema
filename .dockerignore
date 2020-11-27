@@ -1,0 +1,22 @@
+# project
+node_modules
+.next
+dist
+
+# markdown
+*.md
+
+# docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# git
+.git
+.gitignore
+
+# license
+LICENSE
+
+# IDE
+.vscode
